@@ -34,6 +34,8 @@ public class TestMain {
 		doubleHashedInput.add(Arrays.toString(realHashOutput.iterator().next()));
 		System.out.println(Arrays.toString(new Hash().hash(doubleHashedInput).iterator().next()));
 		
+		System.out.println(Base58.encodeChecked(1, new Hash().hash(doubleHashedInput).iterator().next()));
+		
 	}
 	
 	private static void exists(final Set<byte[]> realHashSet, final Set<byte[]> generatedHashSet) {
