@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 
-package test;
+package unforgettablewallet.hash;
 
 import com.google.common.io.ByteStreams;
 import com.google.common.primitives.*;
+
+import unforgettablewallet.utils.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;

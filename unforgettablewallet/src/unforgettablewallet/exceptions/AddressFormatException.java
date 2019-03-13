@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 
-package test;
+package unforgettablewallet.exceptions;
+
+import unforgettablewallet.hash.Base58;
 
 @SuppressWarnings("serial")
 public class AddressFormatException extends IllegalArgumentException {

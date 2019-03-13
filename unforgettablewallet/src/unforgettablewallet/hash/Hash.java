@@ -1,10 +1,12 @@
-package test;
+package unforgettablewallet.hash;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.Set;
+
+import unforgettablewallet.initializers.GlobalProperties;
 
 public class Hash {
 
@@ -14,7 +16,7 @@ public class Hash {
 		if (hashInputs != null) {
 			retHashes = new HashSet<byte[]>();
 			
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			MessageDigest digest = MessageDigest.getInstance(GlobalProperties.MAIN_HASH_ALGORITHM);
 			byte[] hash = null;
 			for (String input : hashInputs) {
 				hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));

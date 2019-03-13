@@ -3,14 +3,30 @@ package test;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import unforgettablewallet.hash.Base58;
+import unforgettablewallet.hash.Hash;
+import unforgettablewallet.utils.FakeWordsGeneratorUtil;
 
 public class TestMain {
 
 	private static String hashInput = "Yi Deng jiu Shi yi nian duo.  san bai liu shi wu ge ri zi bu hao guo";
 	
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	public static void main(String[] args) throws Exception {
+		
+		for (int i = 0; i < 1000; ++i) {
+			List<String> wordList = new CopyOnWriteArrayList<>();
+			
+			FakeWordsGeneratorUtil.populateFakeWords(6, wordList);
+			System.out.println(wordList);
+		}
+	}
+	
+	private static void case1() throws NoSuchAlgorithmException {
 		String unforgettableClue = "Tian Mi Mi.";
 		
 		print(new Hash().hash(initializeHashInput()));
@@ -35,7 +51,6 @@ public class TestMain {
 		System.out.println(Arrays.toString(new Hash().hash(doubleHashedInput).iterator().next()));
 		
 		System.out.println(Base58.encodeChecked(1, new Hash().hash(doubleHashedInput).iterator().next()));
-		
 	}
 	
 	private static void exists(final Set<byte[]> realHashSet, final Set<byte[]> generatedHashSet) {

@@ -15,10 +15,15 @@
  * limitations under the License.
  */
 
-package test;
+package unforgettablewallet.hash;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+
+import unforgettablewallet.exceptions.AddressFormatException;
+import unforgettablewallet.exceptions.AddressFormatException.InvalidCharacter;
+import unforgettablewallet.exceptions.AddressFormatException.InvalidChecksum;
+import unforgettablewallet.exceptions.AddressFormatException.InvalidDataLength;
 
 /**
  * Base58 is a way to encode Bitcoin addresses (or arbitrary data) as alphanumeric strings.

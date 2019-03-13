@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package test;
+package unforgettablewallet.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +45,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.io.BaseEncoding;
 import com.google.common.primitives.Ints;
+
+import unforgettablewallet.hash.Sha256Hash;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.util.concurrent.Uninterruptibles.sleepUninterruptibly;
