@@ -1,12 +1,13 @@
 package test;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import unforgettablewallet.hash.Base58;
 import unforgettablewallet.hash.Hash;
@@ -18,12 +19,69 @@ public class TestMain {
 	
 	public static void main(String[] args) throws Exception {
 		
-		for (int i = 0; i < 1000; ++i) {
-			List<String> wordList = new CopyOnWriteArrayList<>();
+//		case1();
+//		testFakeWordGenerator();
+		testPadRealKeyWithFakeKeys();
+		testPadRealKeyWithFakeKeys();
+		testPadRealKeyWithFakeKeys();
+		
+	}
+	
+	private static void testPadRealKeyWithFakeKeys() throws Exception {
+		String [] base58CheckKeys = {"3mDLLijh8xZZDNFzaRJPb9i3Nf4KqiWYS7ko2kKB1EhQFNtMVb",
+									"3mDLLijh8xZZDNFzaRJPb9i3Nf4KqiWYS7ko2kKB1EhQFNtMVa",
+									"3mDLLijh8xZZDNFzaRJPb9i3Nf4KqiWYS7ko2kKB1EhQFNtMVc",
+									"3mDLLijh8xZZDNFzaRJPb9i3Nf4KqiWYS7ko2kKB1EhQFNtMVd",
+									"3mDLLijh8xZZDNFzaRJPb9i3Nf4KqiWYS7ko2kKB1EhQFNtMVe",
+									"3mDLLijh8xZZDNFzaRJPb9i3Nf4KqiWYS7ko2kKB1EhQFNtMVf"
+		};
+		
+		for (String base58CheckKey : base58CheckKeys) {
+			Set<String> wordList = new HashSet<>();
+			FakeWordsGeneratorUtil.populateFakeWords(10, wordList);
+			
+			Set<byte[]> wordListHashed = new Hash().hash(wordList);
+			Set<String> wordListDoubleHashed = new HashSet<>();
+			// double hash
+			for (byte[] hashedWord : wordListHashed) {
+				wordListDoubleHashed.add(Arrays.toString(hashedWord));
+			}
+			wordListHashed = new Hash().hash(wordListDoubleHashed);
+	
+			List<String> wordListEncoded = new ArrayList<String>();
+			
+			for (byte[] hashedWord : wordListHashed) {
+				wordListEncoded.add("3" + Base58.encodeChecked(1, hashedWord).substring(1));
+			}
+			
+			System.out.println(wordListEncoded.toString());
+			
+			double randomNum = Math.random()*10+1;
+			int insertIndex = (int)randomNum;
+			System.out.println(insertIndex);
+			wordListEncoded.add(insertIndex, base58CheckKey);
+			
+			System.out.println(wordListEncoded.toString().replaceAll(",\\s", "").replaceAll("\\[", "").replaceAll("\\]", ""));
+		}
+	}
+	
+	private static void testFakeWordGenerator() throws Exception {
+		System.out.println(new Date());
+		for (int i = 0; i < 1000000; ++i) {
+			Set<String> wordList = new HashSet<>();
+			
+			FakeWordsGeneratorUtil.MINIMUM_NUMBER_OF_CHARS = 3;
 			
 			FakeWordsGeneratorUtil.populateFakeWords(6, wordList);
-			System.out.println(wordList);
+//			System.out.println(wordList);
+			
+			for (String word : wordList) {
+				if (word.length() < FakeWordsGeneratorUtil.MINIMUM_NUMBER_OF_CHARS) {
+					System.out.println("found word that less than " + FakeWordsGeneratorUtil.MINIMUM_NUMBER_OF_CHARS);
+				}
+			}
 		}
+		System.out.println(new Date());
 	}
 	
 	private static void case1() throws NoSuchAlgorithmException {
